@@ -82,10 +82,10 @@ await flutterLocalNotificationsPlugin.initialize(
       handlemessage(context, initial);
     }
 
-    // FirebaseMessaging.onMessageOpenedApp.listen((event) {
-    //   handlemessage(context, event);
-    //
-    // });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      handlemessage(context, event);
+
+    });
 }
 
   void firebaseinit(BuildContext context){
