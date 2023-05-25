@@ -1,11 +1,18 @@
 
 
 import 'dart:convert';
+
+
+
 import 'dart:math';
 
+import 'package:apiget/cartscreen.dart';
+import 'package:apiget/futureclass.dart';
+import 'package:apiget/model/cartprovider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class notification{
 
@@ -61,29 +68,40 @@ var initlizationsetting = InitializationSettings(
 await flutterLocalNotificationsPlugin.initialize(
     initlizationsetting,
   onDidReceiveNotificationResponse:(payload){
-
+      handlemessage(context,message);
   }
 
 );
   }
-
-  void firebaseinit(){
+  void firebaseinit(BuildContext context){
     FirebaseMessaging.onMessage.listen((message) {
 
       if(kDebugMode){
         print(message.notification!.title?.toString());
         print(message.notification!.body?.toString());
+        print(message.data.toString());
       }
+
+      initlocalnotification(context,message);
+
       shownotification(message);
 
-    });
+    }
+    );
+  }
+ void handlemessage (BuildContext context,RemoteMessage message) {
+if(message.data['type']=='msg'){
+  print('this function calls');
+ Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductScreen()));
+}
+
   }
 
   Future<void> shownotification(RemoteMessage message) async{
 
     AndroidNotificationChannel channel = await  AndroidNotificationChannel(
-      '1',
-      // Random.secure().nextInt(10000).toString(),
+
+       Random.secure().nextInt(10000).toString(),
       'hello this is me',
       importance:Importance.max ,
     );
@@ -103,7 +121,9 @@ channel.name.toString(),
       presentSound: true,
     );
 
-NotificationDetails notificationdetails = NotificationDetails(
+
+
+    NotificationDetails notificationdetails = NotificationDetails(
   android: androiddetails,
   iOS: iosdetails,
 
@@ -112,7 +132,7 @@ NotificationDetails notificationdetails = NotificationDetails(
 
  Future.delayed(Duration.zero,(){
       flutterLocalNotificationsPlugin.show(
-          0,
+          1,
           message.notification!.title?.toString(),
           message.notification!.body?.toString(),
 
@@ -120,6 +140,7 @@ NotificationDetails notificationdetails = NotificationDetails(
 
       );
  }
+
     );
 
 }

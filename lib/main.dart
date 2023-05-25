@@ -38,19 +38,17 @@ class _MyAppState extends State<MyApp> {
   @override
 
   void initState() {
+    notificationservices.firebaseinit(context);
     notificationservices.requestnotificationpermession();
     notificationservices.gettoken().then((value){
       print('token');
       print(value);
 notificationservices.istokenrefresh();
-notificationservices.firebaseinit();
-
-
-
-
     }
 
+
     );
+
     // TODO: implement initState
     super.initState();
   }
