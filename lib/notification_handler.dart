@@ -4,11 +4,13 @@ import 'dart:convert';
 
 
 
+
 import 'dart:math';
 
 import 'package:apiget/cartscreen.dart';
 import 'package:apiget/futureclass.dart';
 import 'package:apiget/model/cartprovider.dart';
+import 'package:apiget/models/iphone.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -57,8 +59,8 @@ class notification{
 
 
 void initlocalnotification(BuildContext context,RemoteMessage message) async{
-    var androidinitilization = const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var iosinitilizationsetting = const  DarwinInitializationSettings();
+    var androidinitilization =  AndroidInitializationSettings('@mipmap/ic_launcher');
+    var iosinitilizationsetting =   DarwinInitializationSettings();
 
 var initlizationsetting = InitializationSettings(
   android: androidinitilization,
@@ -73,6 +75,19 @@ await flutterLocalNotificationsPlugin.initialize(
 
 );
   }
+  Future<void> getinitialmessage(BuildContext context) async{
+    //when app is in terminated mode
+    RemoteMessage? initial = await  FirebaseMessaging.instance.getInitialMessage();
+    if(initial!=null){
+      handlemessage(context, initial);
+    }
+
+    // FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    //   handlemessage(context, event);
+    //
+    // });
+}
+
   void firebaseinit(BuildContext context){
     FirebaseMessaging.onMessage.listen((message) {
 
@@ -92,7 +107,7 @@ await flutterLocalNotificationsPlugin.initialize(
  void handlemessage (BuildContext context,RemoteMessage message) {
 if(message.data['type']=='msg'){
   print('this function calls');
- Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductScreen()));
+ Navigator.push(context,MaterialPageRoute(builder: (context)=>ProductScreen()));
 }
 
   }
@@ -100,10 +115,12 @@ if(message.data['type']=='msg'){
   Future<void> shownotification(RemoteMessage message) async{
 
     AndroidNotificationChannel channel = await  AndroidNotificationChannel(
-
-       Random.secure().nextInt(10000).toString(),
+     message.notification!.android!.channelId.toString(),
       'hello this is me',
       importance:Importance.max ,
+      showBadge: true,
+      playSound: true,
+
     );
 
     AndroidNotificationDetails androiddetails =  AndroidNotificationDetails(
@@ -112,7 +129,10 @@ channel.name.toString(),
       channelDescription: 'hello this is ',
       importance: Importance.high,
       ticker: 'ticker',
-      icon: "@mipmap/ic_launcher"
+      icon: "@mipmap/ic_launcher",
+      priority: Priority.high,
+      playSound: true,
+
 
 );
     DarwinNotificationDetails iosdetails = DarwinNotificationDetails(

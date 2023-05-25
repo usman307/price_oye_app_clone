@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     notificationservices.firebaseinit(context);
     notificationservices.requestnotificationpermession();
+    notificationservices.getinitialmessage(context);
     notificationservices.gettoken().then((value){
       print('token');
       print(value);
