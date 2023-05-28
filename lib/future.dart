@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:apiget/drawerheader.dart';
 import 'package:apiget/futureclass.dart';
+import 'package:apiget/loginoperations/siginin.dart';
 import 'package:apiget/models/iphone.dart';
+import 'package:apiget/utils.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -89,7 +91,7 @@ class _futureState extends State<future> {
           ),
           backgroundColor: Color(0xfff1f3f6),
           drawer: Drawer(
-            width: 300,
+            width: MediaQuery.of(context).size.width*0.8,
             child: Column(
               children: [
                 Expanded(
@@ -119,9 +121,16 @@ class _futureState extends State<future> {
                                         Icons.verified_rounded,
                                         color: Colors.white,
                                       ),
-                                      title: Text(
-                                        'Account',
-                                        style: TextStyle(color: Colors.white),
+                                      title: InkWell(
+                                        onTap: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>signin()));
+                                        },
+                                        child: Container(
+                                          child: Text(
+                                            'Sign in',
+                                            style: TextStyle(color: Colors.white),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                     ListTile(
@@ -149,9 +158,17 @@ class _futureState extends State<future> {
                                         Icons.logout_rounded,
                                         color: Colors.white,
                                       ),
-                                      title: Text(
-                                        'Logout',
-                                        style: TextStyle(color: Colors.white),
+                                      title: InkWell(
+                                        onTap: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>future()));
+                                          utils().toastmessage('Log out Succesfully');
+                                        },
+                                        child: Container(
+                                          child: Text(
+                                            'Logout',
+                                            style: TextStyle(color: Colors.white),
+                                          ),
+                                        ),
                                       ),
                                     )
                                   ],
@@ -178,7 +195,7 @@ class _futureState extends State<future> {
                                       title: Text('Mobiles'),
                                       children: [
                                         Container(
-                                          height: 100,
+                                          height: MediaQuery.of(context).size.height*0.2,
                                           child: ListView.builder(
 
                                                itemCount: snapshot
@@ -187,7 +204,7 @@ class _futureState extends State<future> {
                                                 return ListTile(
                                                   contentPadding:
                                                       EdgeInsets.symmetric(
-                                                          horizontal: 10),
+                                                          horizontal: MediaQuery.of(context).size.height*0.1),
                                                   leading: Text(
 
                                                     snapshot.data!
@@ -208,11 +225,14 @@ class _futureState extends State<future> {
                                     title: Text('Tablets'),
                                     children: [
                                       Container(
-                                        height: 100,
+                                        height:  MediaQuery.of(context).size.height*0.2,
                                         child: ListView.builder(
                                             itemCount: snapshot.data!.products!.length,
                                             itemBuilder: (context, index) {
                                               return ListTile(
+                                                contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: MediaQuery.of(context).size.height*0.1),
                                                 leading: Text( snapshot.data!.products![index].brand.toString(),
 
                                                   style:
@@ -229,12 +249,15 @@ class _futureState extends State<future> {
                                     title: Text('SmartWatches'),
                                     children: [
                                       Container(
-                                        height: 100,
+                                        height:  MediaQuery.of(context).size.height*0.2,
                                         child: ListView.builder(
                                             itemCount:
                                                  snapshot.data!.products!.length,
                                             itemBuilder: (context, index) {
                                               return ListTile(
+                                                contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: MediaQuery.of(context).size.height*0.1),
                                                 leading: Text(snapshot.data!.products![index].brand.toString(),
 
                                                   style:
@@ -251,12 +274,15 @@ class _futureState extends State<future> {
                                     title: Text('Wireless Buds'),
                                     children: [
                                       Container(
-                                        height: 100,
+                                        height:  MediaQuery.of(context).size.height*0.2,
                                         child: ListView.builder(
                                             itemCount:
                                                 snapshot.data!.products!.length,
                                             itemBuilder: (context, index) {
                                               return ListTile(
+                                                contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: MediaQuery.of(context).size.height*0.1),
                                                 trailing: Text(
                                                   snapshot.data!
                                                       .products![index].brand
@@ -274,23 +300,26 @@ class _futureState extends State<future> {
                                       child: ExpansionTile(
                                     title: Text('Mobile Acessories'),
                                     children: [
-                                      // Container(
-                                      //   height: 100,
-                                      //   child: ListView.builder(
-                                      //       itemCount:
-                                      //           snapshot.data!.products!.length,
-                                      //       itemBuilder: (context, index) {
-                                      //         return ListTile(
-                                      //           leading: Text(
-                                      //             snapshot.data!
-                                      //                 .products![index].brand
-                                      //                 .toString(),
-                                      //             style:
-                                      //                 TextStyle(fontSize: 19),
-                                      //           ),
-                                      //         );
-                                      //       }),
-                                      // ),
+                                      Container(
+                                        height: 100,
+                                        child: ListView.builder(
+                                            itemCount:
+                                                snapshot.data!.products!.length,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: MediaQuery.of(context).size.height*0.1),
+                                                leading: Text(
+                                                  snapshot.data!
+                                                      .products![index].brand
+                                                      .toString(),
+                                                  style:
+                                                      TextStyle(fontSize: 19),
+                                                ),
+                                              );
+                                            }),
+                                      ),
                                     ],
                                     leading: Icon(Icons.mobile_screen_share),
                                   )),
@@ -299,12 +328,15 @@ class _futureState extends State<future> {
                                     title: Text('Tv & Home Appliances'),
                                     children: [
                                       Container(
-                                        height: 100,
+                                        height:  MediaQuery.of(context).size.height*0.2,
                                         child: ListView.builder(
                                             itemCount:
                                                 snapshot.data!.products!.length,
                                             itemBuilder: (context, index) {
                                               return ListTile(
+                                                contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: MediaQuery.of(context).size.height*0.1),
                                                 leading: Text(
                                                   snapshot.data!
                                                       .products![index].brand
@@ -338,27 +370,30 @@ class _futureState extends State<future> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Container(
-                          height: 100,
+                          height: MediaQuery.of(context).size.height*0.2,
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: snapshot.data!.products!.length,
                               itemBuilder: (context, index) {
                                 //   print(snapshot.data!.products![index].images!.toString());
                                 return Container(
-                                  height: 300,
-                                  width: 130,
-                                  margin: EdgeInsets.only(
-                                      right: 10, left: 10, top: 10),
-                                  //   margin: EdgeInsets.all(3),
+                                  width: MediaQuery.of(context).size.width*0.3,
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context).size.height * 0.01,
+                                    horizontal: MediaQuery.of(context).size.width * 0.1,
+                                  ),
+                                  // margin: EdgeInsets.only(
+                                  // //    right: 10, left: 10, top: 10),
+                                  // //   margin: EdgeInsets.all(3),
+                                  // ),
                                   decoration: BoxDecoration(boxShadow: [
                                     BoxShadow(
                                         color: Colors.white10,
                                         blurRadius: 20.0,
                                         spreadRadius: 3)
                                   ]
-                                      //    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                      //     color: Colors.red,
-                                      ),
+
+                                  ),
                                   child: Image.network(
                                     snapshot
                                         .data!.products![index]!.images!.first
@@ -379,73 +414,81 @@ class _futureState extends State<future> {
                     future: Future.value(provider.getproducts()),
 
                     builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return  Stack(
-                          children: [
-                            CarouselSlider.builder(
+                      try{
+                        if (snapshot.hasData) {
+                          return  Stack(
+                            children: [
+                              CarouselSlider.builder(
 
-                                itemCount:snapshot.data!.products!.length ,
-                                carouselController: caro,
-                                itemBuilder: (context, index, realindex) {
-                                  return Container(
-                                    //   margin: EdgeInsets.only(left: 40),
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          spreadRadius: 1,
-                                          color: Colors.white10,
-                                          blurRadius: 1,
-                                        )
-                                      ],
-                                    ),
+                                  itemCount:snapshot.data!.products!.length ,
+                                  carouselController: caro,
+                                  itemBuilder: (context, index, realindex) {
+                                    return Container(
+                                      //   margin: EdgeInsets.only(left: 40),
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            spreadRadius: 1,
+                                            color: Colors.white10,
+                                            blurRadius: 1,
+                                          )
+                                        ],
+                                      ),
 
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        child: Image.network(
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                          child: Image.network(
 
-                                           snapshot.data!.products![index].images!.first.toString(),
-                                          fit: BoxFit.contain,
-                                        )
-                                    ),
-                                  );
-                                },
-                                options: CarouselOptions(
-                                  autoPlayAnimationDuration:
-                                  Duration(milliseconds: 2000),
-                                  //       autoPlay: true,
-                                  //   enlargeCenterPage: true,
-                                  viewportFraction: 1,
-                                )),
-                            Positioned(
-                              bottom: 18,
-                              right: 0,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  // borderRadius: BorderRadius.circular(2),
+                                            snapshot.data!.products![index].images!.first.toString(),
+                                            fit: BoxFit.contain,
+                                          )
+                                      ),
+                                    );
+                                  },
+                                  options: CarouselOptions(
+                                    autoPlayAnimationDuration:
+                                    Duration(milliseconds: 2000),
+                                    //       autoPlay: true,
+                                    //   enlargeCenterPage: true,
+                                    viewportFraction: 1,
+                                  )),
+                              Positioned(
+                                bottom: 18,
+                                right: 0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    // borderRadius: BorderRadius.circular(2),
+                                  ),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        caro.nextPage();
+                                      },
+                                      icon: Icon(
+                                        Icons.arrow_forward_outlined,
+                                        color: Colors.white,
+                                      )),
                                 ),
-                                child: IconButton(
-                                    onPressed: () {
-                                      caro.nextPage();
-                                    },
-                                    icon: Icon(
-                                      Icons.arrow_forward_outlined,
-                                      color: Colors.white,
-                                    )),
                               ),
-                            ),
-                          ],
-                        );
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return Text('no data');
+                            ],
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return Text('no data');
+                        }
+                      }catch(e){
+                        return utils().toastmessage('an error occured $e');
+
                       }
-                    }),
+                      }
+
+
+                    ),
                 Container(
                   height: 50,
                   color: Color(0xfff1f3f6),
@@ -468,98 +511,105 @@ class _futureState extends State<future> {
                 FutureBuilder(
                     future: provider.getproducts(),
                     builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Container(
-                          height: 200,
-                          width: 400,
-                          child: Stack(
-                            children: [
-                              GridView.builder(
+                      try{
+                        if (snapshot.hasData) {
+                          return Container(
+                            height: 200,
+                            width: 400,
+                            child: Stack(
+                              children: [
+                                GridView.builder(
                                   //   physics:ScrollPhysics(),
-                                  controller: scroll,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data!.products!.length,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    //    mainAxisExtent: 2,
-                                    //    mainAxisSpacing: 2,
-                                    crossAxisCount: 1,
-                                  ),
-                                  itemBuilder: (context, index) {
-                                    final producttt = snapshot.data!.products![index];
-                                    return Card(
-                                      //   margin: EdgeInsets.only(left: 30),
-                                      elevation: 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 7, top: 10),
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 20),
-                                              child: InkWell(
-                                                onTap: (){
-                                           //       cart.addToCart(producttt);
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>iphone(id: snapshot.data!.products![index].id!.toInt(), price:  snapshot.data!.products![index].price!.toInt(),images:snapshot.data!.products![index].images!.first.toString() ,brand:snapshot.data!.products![index].brand.toString(),description: snapshot.data!.products![index].description.toString(),stock: snapshot.data!.products![index].stock!.toInt() ,)
-                                                  ));
-                                                },
-                                                child: Container(
-                                                  height: 100,
+                                    controller: scroll,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data!.products!.length,
+                                    gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                      //    mainAxisExtent: 2,
+                                      //    mainAxisSpacing: 2,
+                                      crossAxisCount: 1,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      final producttt = snapshot.data!.products![index];
+                                      return Card(
+                                        //   margin: EdgeInsets.only(left: 30),
+                                        elevation: 3,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, right: 7, top: 10),
+                                          child: Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 20),
+                                                child: InkWell(
+                                                  onTap: (){
+                                                    //       cart.addToCart(producttt);
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>iphone(id: snapshot.data!.products![index].id!.toInt(), price:  snapshot.data!.products![index].price!.toInt(),images:snapshot.data!.products![index].images!.first.toString() ,brand:snapshot.data!.products![index].brand.toString(),description: snapshot.data!.products![index].description.toString(),stock: snapshot.data!.products![index].stock!.toInt() ,)
+                                                    ));
+                                                  },
+                                                  child: Container(
+                                                    height: 100,
 
-                                                  //    margin: EdgeInsets.only(right: 20),
-                                                  child: Image.network(snapshot
-                                                      .data!
-                                                      .products![index]
-                                                      .images!
-                                                      .first
-                                                      .toString()),
+                                                    //    margin: EdgeInsets.only(right: 20),
+                                                    child: Image.network(snapshot
+                                                        .data!
+                                                        .products![index]
+                                                        .images!
+                                                        .first
+                                                        .toString()),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Text(snapshot
-                                                .data!.products![index].title
-                                                .toString()),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Transform.translate(
-                                                    offset: Offset(-60, 10),
-                                                    child: Text('Rs:' +
-                                                        snapshot
-                                                            .data!
-                                                            .products![index]
-                                                            .price
-                                                            .toString()))
-                                              ],
-                                            )
-                                          ],
+                                              Text(snapshot
+                                                  .data!.products![index].title
+                                                  .toString()),
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: [
+                                                  Transform.translate(
+                                                      offset: Offset(-60, 10),
+                                                      child: Text('Rs:' +
+                                                          snapshot
+                                                              .data!
+                                                              .products![index]
+                                                              .price
+                                                              .toString()))
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
+                                      );
+                                    }),
+                                Positioned(
+                                    right: 1,
+                                    child: Container(
+                                      color: Color(0xf7e7d7f),
+                                      child: IconButton(
+                                        onPressed: () {
+                                          scroll;
+                                        },
+                                        icon: Icon(Icons.arrow_forward_outlined),
                                       ),
-                                    );
-                                  }),
-                              Positioned(
-                                  right: 1,
-                                  child: Container(
-                                    color: Color(0xf7e7d7f),
-                                    child: IconButton(
-                                      onPressed: () {
-                                        scroll;
-                                      },
-                                      icon: Icon(Icons.arrow_forward_outlined),
-                                    ),
-                                  ))
-                            ],
-                          ),
-                        );
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else {
-                        return Text('something went wrong ');
+                                    ))
+                              ],
+                            ),
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else {
+                          return Text('something went wrong ');
+                        }
+                      }catch(e){
+                        return utils().toastmessage('an error occured $e');
                       }
-                    }),
+
+                    }
+
+                    ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -579,154 +629,160 @@ class _futureState extends State<future> {
                 FutureBuilder(
                     future: provider.getproducts(),
                     builder: (context, snapshot) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.green,
+                      try{
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.green,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.red,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.red,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.yellow,
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.yellow,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.blue,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.blue,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey,
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.grey,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.pink,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.pink,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.green,
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.green,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.red,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.red,
+                                      ),
+                                      child: Center(
+                                          child: Text('Below 10,000' +
+                                              snapshot.data!.products![2].price
+                                                  .toString())),
                                     ),
-                                    child: Center(
-                                        child: Text('Below 10,000' +
-                                            snapshot.data!.products![2].price
-                                                .toString())),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      );
+                              ],
+                            ),
+                          ],
+                        );
+                      } catch(e){
+                      return utils().toastmessage('An error occured$e');
+
+                      }
+
                     }),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
