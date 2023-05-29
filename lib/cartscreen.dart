@@ -4,6 +4,7 @@ import 'package:apiget/future.dart';
 import 'package:apiget/futureclass.dart';
 import 'package:apiget/model/cartmodel.dart';
 import 'package:apiget/model/model.dart';
+import 'package:apiget/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -60,126 +61,115 @@ class _ProductScreenState extends State<ProductScreen> {
          //   Text('${widget.description}'),
             Expanded(
               child: FutureBuilder(
-                  //  future:Future.value( cart.getproductlist),
-                future: Future.value((cart.getpro)),
+                  future: Future.value((cart.getproductlist)),
                    builder: (context,snapshot){
-                    if(snapshot.hasData){
+                    try{
+                      if(snapshot.hasData){
+                        return ListView.builder(
+                            itemCount:snapshot.data!.length,
+                            itemBuilder: (context,index){
 
-                      return ListView.builder(
-                          itemCount:snapshot.data!.length,
-                          itemBuilder: (context,index){
+                              final cartt = snapshot.data![index];
+                              print(cartt.cartprice.toString());
 
-                         final cartt = snapshot.data![index];
-print(cartt.price.toString());
+                              return Column(
+                                children: [
+                                  Card(
+                                    child: Stack(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height:100,
+                                              child: Image.network(widget.images.toString()),
+                                            ),
+                                            // Text(cartt.cartprice.toString()),
+                                            InkWell(
+                                              onTap: (){
+                                                setState(() {
+                                                  cart.increasequantity(cartt);
+                                                });
 
+                                              },
+                                              child: Container(
+                                                child: Icon(Icons.add),
+                                              ),
+                                            ),
 
-                          return Column(
-                              children: [
-                                Card(
-                                  child: Stack(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            height:100,
-                                            child: Image.network(widget.images.toString()),
-                                          ),
-                                          // Text(cartt.cartprice.toString()),
-                                          InkWell(
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: Colors.black)
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(4),
+                                                  child: Text(cartt.cartid.toString()),
+                                                )),
+
+                                            Spacer(),
+                                            Text('Estimated Delivery Time'),
+
+                                          ],
+                                        ),
+                                        Positioned(
+                                            top: 60,
+                                            right:10,
+                                            child: Text('23 june',style: TextStyle(fontWeight: FontWeight.bold),)),
+                                        Positioned(
+                                          left: MediaQuery.of(context).size.height*0.19,
+                                          top: 30,
+                                          child: InkWell(
                                             onTap: (){
                                               setState(() {
-                                             //   cart.increasequantity(cartt);
+                                                cart.decreasequantity(cartt);
                                               });
+
 
                                             },
                                             child: Container(
-                                              child: Icon(Icons.add),
+                                              child: Icon(Icons.minimize_outlined),
                                             ),
-                                          ),
-
-                                    //      Text(cartt.cartid.toString()),
-
-                                          Spacer(),
-                                          Text('Estimated Delivery Time'),
-
-                                        ],
-                                      ),
-                                      Positioned(
-                                          top: 60,
-                                          right:10,
-                                          child: Text('23 june',style: TextStyle(fontWeight: FontWeight.bold),)),
-                                      Positioned(
-                                        left: 180,
-                                        top: 30,
-                                        child: InkWell(
-                                          onTap: (){
-                                            setState(() {
-                                        //      cart.decreasequantity(cartt);
-                                            });
+                                          ),),
 
 
-                                          },
-                                          child: Container(
-                                            child: Icon(Icons.minimize_outlined),
-                                          ),
-                                        ),),
+                                      ],
+                                    ),
 
-                                      Positioned(
-                                        left: 160,
-                                          top:70,
-                                          // child: Text(cartt.cartbrand)
-                                        child: Text(''),
-
-                                      ),
-
-                                    ],
                                   ),
 
-                                ),
 
-
-                              ],
-                            );
+                                ],
+                              );
+                            }
+                        );
                       }
-                      );
-
+                      else if(snapshot.hasError){
+                        return Text('error');
+                      }
+                      else if(!snapshot.hasData){
+                        return CircularProgressIndicator();
+                      }
+                      return Text('Data not found');
+                    }catch(e){
+                return utils().toastmessage('Error Occured $e');
                     }
-                    else if(snapshot.hasError){
-                      return Text('error');
-                    }
-                    else if(!snapshot.hasData){
-                      return Text('no data');
-                    }
-                    return Text('Data not found');
-
-                   }),
+                  }
+                   ),
             ),
 
-//             Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 Container(
-//                   margin: EdgeInsets.only(bottom: 3),
-// height: 50,
-//                   width: double.infinity,
-//                   decoration: BoxDecoration(
-//                     border: Border.all(color: Colors.grey),
-//                       borderRadius: BorderRadius.all(Radius.circular(5))
-//                   ),
-//                   child: Align(
-//                       alignment: Alignment.center,
-//                       child: Text('Total price is ${cart.totalprice().toString()}',style: TextStyle(fontWeight: FontWeight.bold),)),
-//                 )
-//               ],
-//             )
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height*0.10,
+              width: MediaQuery.of(context).size.width*1,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black)
+              ),
+            child:
+            Center(child: Text('Total Price:${cart.totalprice().toString()}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),
 
-
+            ),
+          )
           ]
-
-
-
-
 
         ),
       )

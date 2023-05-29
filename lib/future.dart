@@ -18,8 +18,6 @@ import 'model/model.dart';
 
 class future extends StatefulWidget {
 
-  //  late int ? price;
-  // late  int ? id;
   future({Key? key,}) : super(key: key);
 
   @override
@@ -45,6 +43,10 @@ class _futureState extends State<future> {
 
   @override
   Widget build(BuildContext context) {
+    final double screen_height = MediaQuery.of(context).size.height;
+    final double screen_width = MediaQuery.of(context).size.width;
+    final double height = screen_height*0.10;
+    final double width = screen_width*0.03;
     final cart = Provider.of<cartprovider>(context,listen: false);
 
     final provider = Provider.of<futureclass>(context, listen: false);
@@ -490,10 +492,11 @@ class _futureState extends State<future> {
 
                     ),
                 Container(
-                  height: 50,
+                  height: MediaQuery.of(context).size.height*.08,
                   color: Color(0xfff1f3f6),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+                    padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height*0.01,left: width,right: width),
+                    // top: 10, left: 5, right: 5
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -636,9 +639,9 @@ class _futureState extends State<future> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                 padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.green,
@@ -652,9 +655,9 @@ class _futureState extends State<future> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.red,
@@ -672,9 +675,9 @@ class _futureState extends State<future> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.yellow,
@@ -688,9 +691,9 @@ class _futureState extends State<future> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.blue,
@@ -708,9 +711,9 @@ class _futureState extends State<future> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.grey,
@@ -724,9 +727,9 @@ class _futureState extends State<future> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.pink,
@@ -744,9 +747,9 @@ class _futureState extends State<future> {
                               children: [
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.green,
@@ -760,9 +763,9 @@ class _futureState extends State<future> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                    padding:  EdgeInsets.all(width),
                                     child: Container(
-                                      height: 50,
+                                      height: MediaQuery.of(context).size.height*0.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.red,
@@ -785,7 +788,7 @@ class _futureState extends State<future> {
 
                     }),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(MediaQuery.of(context).size.height*0.03),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -816,23 +819,25 @@ class _futureState extends State<future> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: snapshot.data!.products!.length,
                                 itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Container(
-                                      margin: EdgeInsets.only(left: 5),
-                                      width: 60,
-                                      //   height: 40,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.green,
-                                      ),
+                                  return Container(
+                                    width: MediaQuery.of(context).size.height*0.10,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.green,
+                                    ),
+                                    child: ClipOval(
                                       child: Center(
-                                          child: Text(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(20),
+                                            child: Text(
+
                                         snapshot.data!.products![index]!.brand!
-                                            .toString(),
-                                        style: TextStyle(
-                                            overflow: TextOverflow.fade),
-                                      )),
+                                              .toString(),
+                                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13
+                                             ),
+                                              maxLines: 1,overflow: TextOverflow.fade,
+                                      ),
+                                          )),
                                     ),
                                   );
                                 }),
@@ -861,7 +866,7 @@ class _futureState extends State<future> {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
-                                height: 250,
+                                height: MediaQuery.of(context).size.height*0.30,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     itemCount: snapshot.data!.products!.length,
@@ -869,9 +874,7 @@ class _futureState extends State<future> {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
-
-                                            //    height:100,
-                                            width: 400,
+                                            width: MediaQuery.of(context).size.width*1,
                                             decoration: BoxDecoration(
                                               color: Colors.blue,
                                             ),
@@ -888,12 +891,12 @@ class _futureState extends State<future> {
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
+                                                                 EdgeInsets
+                                                                    .all(MediaQuery.of(context).size.height*0.01),
                                                             child: Container(
                                                               margin: EdgeInsets
                                                                   .only(
-                                                                      top: 10),
+                                                                      top: width),
                                                               child:
                                                                   CircleAvatar(
                                                                 backgroundColor:
@@ -908,8 +911,8 @@ class _futureState extends State<future> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
+                                                                 EdgeInsets
+                                                                    .all(MediaQuery.of(context).size.height*0.01),
                                                             child: Text(
                                                               'Mr Usman',
                                                               style: TextStyle(
@@ -1493,38 +1496,38 @@ class _futureState extends State<future> {
                 SizedBox(
                   height: 5,
                 ),
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: ClipRRect(
-                //           borderRadius: BorderRadius.circular(10),
-                //           child: YoutubePlayer(
-                //             width: 200,
-                //             controller: youtub,
-                //             showVideoProgressIndicator: false,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     // Expanded(
-                //     //   child: Padding(
-                //     //     padding: const EdgeInsets.all(8.0),
-                //     //     child: ClipRRect(
-                //     //       borderRadius: BorderRadius.circular(10),
-                //     //       child: YoutubePlayer(
-                //     //         thumbnail: Text('Price oye'),
-                //     //         progressIndicatorColor: Colors.red,
-                //     //         width: 200,
-                //     //         controller: youtub,
-                //     //         showVideoProgressIndicator: true,
-                //     //       ),
-                //     //     ),
-                //     //   ),
-                //     // ),
-                //   ],
-                // ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: YoutubePlayer(
+                            width: 200,
+                            controller: youtub,
+                            showVideoProgressIndicator: false,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: YoutubePlayer(
+                            thumbnail: Text('Price oye'),
+                            progressIndicatorColor: Colors.red,
+                            width: 200,
+                            controller: youtub,
+                            showVideoProgressIndicator: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: 10,
                 ),

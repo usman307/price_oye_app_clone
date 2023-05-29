@@ -355,8 +355,6 @@ class _iphoneState extends State<iphone> with SingleTickerProviderStateMixin {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  // height: 100,
-                  // width: 200,
                   decoration: BoxDecoration(),
                   child: CarouselSlider.builder(
                       itemCount: widget.images!.length,
@@ -392,6 +390,7 @@ class _iphoneState extends State<iphone> with SingleTickerProviderStateMixin {
      return InkWell(
        onTap: (){
 
+Cartprovider.addToCart(product);
 Cartprovider.addToCart(product);
 ScaffoldMessenger.of(context).showSnackBar(
   SnackBar(

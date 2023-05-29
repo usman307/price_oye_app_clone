@@ -70,7 +70,7 @@ Future<dynamic> getproduct() async{
     category: e['category'],
     rating: e['rating'],
   )).toList();
-notifyListeners();
+ notifyListeners();
 }
 
 List<cartmodel> _myproduct =[];
@@ -101,7 +101,7 @@ int total = 0;
 for(var i in _myproduct){
   total = total+(i.cartprice??0)*(i.cartstock??0);
 
-notifyListeners();
+ notifyListeners();
 }
 return total;
 
