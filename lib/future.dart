@@ -1496,38 +1496,38 @@ class _futureState extends State<future> {
                 SizedBox(
                   height: 5,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: YoutubePlayer(
-                            width: 200,
-                            controller: youtub,
-                            showVideoProgressIndicator: false,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: YoutubePlayer(
-                            thumbnail: Text('Price oye'),
-                            progressIndicatorColor: Colors.red,
-                            width: 200,
-                            controller: youtub,
-                            showVideoProgressIndicator: true,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: ClipRRect(
+                //           borderRadius: BorderRadius.circular(10),
+                //           child: YoutubePlayer(
+                //             width: 200,
+                //             controller: youtub,
+                //             showVideoProgressIndicator: false,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     // Expanded(
+                //     //   child: Padding(
+                //     //     padding: const EdgeInsets.all(8.0),
+                //     //     child: ClipRRect(
+                //     //       borderRadius: BorderRadius.circular(10),
+                //     //       child: YoutubePlayer(
+                //     //         thumbnail: Text('Price oye'),
+                //     //         progressIndicatorColor: Colors.red,
+                //     //         width: 200,
+                //     //         controller: youtub,
+                //     //         showVideoProgressIndicator: true,
+                //     //       ),
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //   ],
+                // ),
                 SizedBox(
                   height: 10,
                 ),

@@ -20,7 +20,7 @@ class futureclass with ChangeNotifier{
       final response = await http.get(Uri.parse('https://dummyjson.com/products'));
       data = jsonDecode(response.body.toString());
       if(response.statusCode==200){
-        await firestore.collection('mobiles').doc(id).set(data);
+    await firestore.collection('mobiles').doc(id).set(data);
 
 
         return Model.fromJson(data);
